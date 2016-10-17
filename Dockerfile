@@ -1,52 +1,27 @@
-FROM debian:jessie
-MAINTAINER Nick Roth "nlr06886@gmail.com"
+FROM debian:8.5
 
-# Link in our build files to the docker image
-ADD src/ /tmp
+MAINTAINER Kamil Kwiek <kamil.kwiek@continuum.io>
 
-# Run all ubuntu updates and apt-get installs
-RUN export DEBIAN_FRONTEND=noninteractive && \
-	apt-get update && \
-	apt-get upgrade -y && \
-	apt-get install -y git \
-		wget \
-		bzip2 \
-		build-essential \
-		python-dev \
-		gfortran \
-	&& apt-get clean
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
-# Create conda user, get anaconda by web or locally
-RUN useradd --create-home --home-dir /home/condauser --shell /bin/bash condauser
-RUN /tmp/get_anaconda.sh
+RUN apt-get update --fix-missing && apt-get install -y wget bzip2 ca-certificates \
+    libglib2.0-0 libxext6 libsm6 libxrender1 \
+    git mercurial subversion
 
-# Run all python installs
-# Perform any cleanup of the install as needed
-USER condauser
-RUN /tmp/install.sh
+RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
+    wget --quiet https://repo.continuum.io/archive/Anaconda3-4.2.0-Linux-x86_64.sh -O ~/anaconda.sh && \
+    /bin/bash ~/anaconda.sh -b -p /opt/conda && \
+    rm ~/anaconda.sh
 
-# Copy notebook config into ipython directory
-# Make sure our user owns the directory
-USER root
-RUN  apt-get --purge -y autoremove wget && \
-	cp /tmp/ipython_notebook_config.py /home/condauser/.ipython/profile_default/ && \
-	cp /tmp/matplotlib_nb_init.py /home/condauser/.ipython/profile_default/startup && \
-	chown condauser:condauser /home/condauser -R
+RUN apt-get install -y curl grep sed dpkg && \
+    TINI_VERSION=`curl https://github.com/krallin/tini/releases/latest | grep -o "/v.*\"" | sed 's:^..\(.*\).$:\1:'` && \
+    curl -L "https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini_${TINI_VERSION}.deb" > tini.deb && \
+    dpkg -i tini.deb && \
+    rm tini.deb && \
+    apt-get clean
 
-# Set persistent environment variables for python3 and python2
-ENV PY2PATH=/home/condauser/anaconda3/envs/python2/bin
-ENV PY3PATH=/home/condauser/anaconda3/bin
+ENV PATH /opt/conda/bin:$PATH
 
-# Install the python2 ipython kernel
-RUN $PY2PATH/python $PY2PATH/ipython kernelspec install-self
+ENTRYPOINT [ "/usr/bin/tini", "--" ]
+CMD [ "/bin/bash" ]
 
-# Setup our environment for running the ipython notebook
-# Setting user here makes sure ipython notebook is run as user, not root
-EXPOSE 8888
-USER condauser
-ENV HOME=/home/condauser
-ENV SHELL=/bin/bash
-ENV USER=condauser
-WORKDIR /home/condauser/notebooks
-
-CMD $PY3PATH/ipython notebook
