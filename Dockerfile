@@ -1,16 +1,25 @@
-FROM ubuntu
-MAINTAINER Sebastien Binet "binet@cern.ch"
+FROM centos
+MAINTAINER binet@cern.ch
 
-# install a few dependencies
-RUN apt-get update -y && \
-    apt-get install -y \
-	git rinse sudo tar \
-	;
+##Basic image
 
-RUN git clone \
-	git://github.com/hepsw/docks \
-	/docks
+RUN rpm -ivh --force http://ftp.scientificlinux.org/linux/scientific/7x/x86_64/os/Packages/sl-release-7.2-2.sl7.x86_64.rpm
 
-RUN mkdir /build && \
-	cd /build && \
-	/docks/mkimage-slc.sh hepsw/slc-base slc-6 
+ADD dot-bashrc                    /root/.bashrc
+ADD dot-bash_profile              /root/.bash_profile
+
+##Add repos. Example from slc 6
+#ADD yum-repos-d-slc6-os.repo      /etc/yum.repos.d/slc6-os.repo
+#ADD yum-repos-d-slc6-updates.repo /etc/yum.repos.d/slc6-updates.repo
+#ADD yum-repos-d-slc6-extras.repo  /etc/yum.repos.d/slc6-extras.repo
+
+RUN yum -y erase centos-release
+RUN yum -y erase all
+RUN yum -y distro-sync
+
+ENV HOME /root
+
+##Extra
+
+
+## EOF
