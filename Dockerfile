@@ -38,14 +38,36 @@ RUN yum -y install \
            ncurses-devel \
            texinfo \
            wget \
-	   bzip2	
+	   bzip2 sudo passwd
+	
+#RUN yum -y install libxslt-devel libXt-devel zip
+
 ##TO install Anaconda with Python 3.4
 #RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
 #    wget --quiet https://repo.continuum.io/archive/Anaconda3-4.2.0-Linux-x86_64.sh -O ~/anaconda.sh
-
 #RUN /bin/bash ~/anaconda.sh -b -p /opt/conda && \
 #    rm ~/anaconda.sh
 #ENV PATH /opt/conda/bin:$PATH
+
+##To install minicoda python 3.5
+RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
+    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh  -O ~/miniconda.sh && \
+    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
+    rm ~/miniconda.sh
+RUN /opt/conda/bin/conda  install -y -c astropy python-cpl=0.7.2
+ENV PATH /opt/conda/bin:$PATH
+
+##Add user called vimos with sudo privilegies and passwd docker
+RUN echo 'docker' | passwd root --stdin
+RUN useradd -ms /bin/bash vimos 
+RUN usermod -aG wheel vimos
+RUN echo 'docker' | passwd vimos --stdin
+USER vimos
+WORKDIR /home/vimos
+ENV HOME /home/vimos
+
+#RUN wget http://ds9.si.edu/download/centos7/ds9.centos7.7.5rc2.tar.gz  && tar -zxvf ds9.centos7.7.5rc2.tar.gz && rm ds9.centos7.7.5rc2.tar.gz
+
 ## EOF
 
 
