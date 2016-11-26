@@ -1,4 +1,4 @@
-VIMOS docker
+## VIMOS docker
 
 This includes the Dockerfile for a image with Anaconda (based on Python 3.5) of Scientific Linux 6. The original Dockerfile is from  [hwaf-docker](https://github.com/hwaf/hwaf-docker). It builds Scientif Linux from the Centos image. The build image can be downloaded from Docker Hub from [vimosdocker](https://hub.docker.com/r/manuelmarcano22/vimosdocker/).
 
