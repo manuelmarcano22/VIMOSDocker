@@ -1,17 +1,9 @@
+VIMOS docker
 
-## VIMOS docker
-
-<!--This includes the Dockerfile for a image with Anaconda (based on Python 3.5). The original Dockerfile is from  [ContinuumIO](https://github.com/ContinuumIO/docker-images/tree/master/anaconda3). It is in DockerHub at https://hub.docker.com/r/continuumio/anaconda3/ 
-
-
-https://twiki.cern.ch/twiki/bin/view/LHCb/LHCbSoftOnDocker
+This includes the Dockerfile for a image with Anaconda (based on Python 3.5) of Scientific Linux 6. The original Dockerfile is from  [hwaf-docker](https://github.com/hwaf/hwaf-docker). It builds Scientif Linux from the Centos image. The build image can be downloaded from Docker Hub from [vimosdocker](https://hub.docker.com/r/manuelmarcano22/vimosdocker/).
 
 
-Explain here 
-
-http://stackoverflow.com/questions/24151129/docker-network-calls-fail-during-image-build-on-corporate-network
-
-vim /usr/lib/systemd/system/docker.service -->
+More information on some docker images used at the LHC can be found at [LHCb](https://twiki.cern.ch/twiki/bin/view/LHCb/LHCbSoftOnDocker). 
 
 
 
@@ -19,4 +11,5 @@ vim /usr/lib/systemd/system/docker.service -->
 
 - [ ] Dockerfile to include [Python-cpl](https://github.com/olebole/python-cpl)
 - [ ] Docker file to install [Pyraf](http://www.stsci.edu/institute/software_hardware/pyraf)
+
 
