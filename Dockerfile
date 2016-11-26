@@ -21,5 +21,31 @@ ENV HOME /root
 
 ##Extra
 
+RUN yum -y update
+RUN yum -y install \
+           file which
 
+
+RUN yum -y install binutils-devel
+
+RUN yum -y install gcc gcc-c++ gcc-gfortran git make patch python-devel
+
+RUN yum -y install \
+           bzip2-devel \
+           libXpm-devel libXft-devel libXext-devel \
+           libxml2-devel \
+           libuuid-devel \
+           ncurses-devel \
+           texinfo \
+           wget \
+	   bzip2	
+##TO install Anaconda with Python 3.4
+#RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
+#    wget --quiet https://repo.continuum.io/archive/Anaconda3-4.2.0-Linux-x86_64.sh -O ~/anaconda.sh
+
+#RUN /bin/bash ~/anaconda.sh -b -p /opt/conda && \
+#    rm ~/anaconda.sh
+#ENV PATH /opt/conda/bin:$PATH
 ## EOF
+
+
