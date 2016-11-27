@@ -73,5 +73,12 @@ ENV HOME /home/vimos
 
 RUN wget http://ds9.si.edu/download/linux64_5/ds9.linux64_5.7.4.tar.gz  && tar -zxvf ds9.linux64_5.7.4.tar.gz && rm ds9.linux64_5.7.4.tar.gz
 
+##Astroconda http://astroconda.readthedocs.io/en/latest/installation.html#obtain-anaconda
+#conda create -y -n astroconda stsci
+##With iraf
+conda config --add channels http://ssb.stsci.edu/astroconda
+conda create -y -n iraf27 python=2.7 iraf pyraf stsci
+
+
 
 ## EOF
