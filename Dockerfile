@@ -38,7 +38,7 @@ RUN yum -y install \
            ncurses-devel \
            texinfo \
            wget \
-	   bzip2 sudo passwd
+	   bzip2 sudo passwd bc csh vim
 	
 #RUN yum -y install libxslt-devel libXt-devel zip
 
