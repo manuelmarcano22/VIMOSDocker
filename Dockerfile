@@ -38,8 +38,9 @@ RUN yum -y install \
            ncurses-devel \
            texinfo \
            wget \
-	   bzip2 sudo passwd bc csh vim
-	
+	   bzip2 sudo passwd bc csh vim libXScrnSaver evince
+
+
 #RUN yum -y install libxslt-devel libXt-devel zip
 
 ##TO install Anaconda with Python 3.4
@@ -66,8 +67,11 @@ USER vimos
 WORKDIR /home/vimos
 ENV HOME /home/vimos
 
-#RUN wget http://ds9.si.edu/download/centos7/ds9.centos7.7.5rc2.tar.gz  && tar -zxvf ds9.centos7.7.5rc2.tar.gz && rm ds9.centos7.7.5rc2.tar.gz
+
+#To install ds9. For some reason other version dont work so do Centos 5 and install evince.
+#There must be a better way
+
+RUN wget http://ds9.si.edu/download/linux64_5/ds9.linux64_5.7.4.tar.gz  && tar -zxvf ds9.linux64_5.7.4.tar.gz && rm ds9.linux64_5.7.4.tar.gz
+
 
 ## EOF
-
-
