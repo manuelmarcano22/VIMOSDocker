@@ -24,7 +24,9 @@ RUN yum -y install \
            file which
 
 RUN yum -y install binutils-devel gcc gcc-c++ gcc-gfortran git make patch python-devel \
-	   glibc.i686 zlib.i686 ncurses-libs.i686 bzip2-libs.i686 uuid.i686 libxcb.i686
+	   glibc.i686 zlib.i686 ncurses-libs.i686 bzip2-libs.i686 uuid.i686 libxcb.i686 \
+	   libXmu.so.6 libncurses.so.5 tcsh
+
 
 #These are needed to build IRAF
 
@@ -91,7 +93,8 @@ RUN echo 'git clone https://github.com/manuelmarcano22/VIMOSReduced.git' >> clon
 ##With iraf
 RUN /opt/conda/bin/conda config --add channels http://ssb.stsci.edu/astroconda
 #RUN /opt/conda/bin/conda create -y -n iraf27 python=2.7 iraf pyraf stsci
-RUN /opt/conda/bin/conda create -y -n iraf27 python=2.7 iraf pyraf python-cpl
+RUN /opt/conda/bin/conda create -y -n iraf27 python=2.7 iraf pyraf stsci
+
 
 
 
