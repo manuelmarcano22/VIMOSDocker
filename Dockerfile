@@ -58,6 +58,12 @@ RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
 RUN /opt/conda/bin/conda  install -y -c astropy python-cpl=0.7.2
 ENV PATH /opt/conda/bin:$PATH
 
+
+RUN wget http://ds9.si.edu/download/linux64_5/ds9.linux64_5.7.4.tar.gz  && tar -zxvf ds9.linux64_5.7.4.tar.gz && rm ds9.linux64_5.7.4.tar.gz
+
+RUN mv ds9 /usr/local/bin
+
+
 ##Add user called vimos with sudo privilegies and passwd docker
 RUN echo 'docker' | passwd root --stdin
 RUN useradd -ms /bin/bash vimos 
@@ -66,18 +72,19 @@ RUN echo 'docker' | passwd vimos --stdin
 USER vimos
 WORKDIR /home/vimos
 ENV HOME /home/vimos
+RUN echo '#!/bin/bash' > clonerepo.sh && chmod +x clonerepo.sh
+RUN echo 'git clone https://github.com/manuelmarcano22/VIMOSReduced.git' >> clonerepo.sh
+
 
 
 #To install ds9. For some reason other version dont work so do Centos 5 and install evince.
 #There must be a better way
 
-RUN wget http://ds9.si.edu/download/linux64_5/ds9.linux64_5.7.4.tar.gz  && tar -zxvf ds9.linux64_5.7.4.tar.gz && rm ds9.linux64_5.7.4.tar.gz
-
 ##Astroconda http://astroconda.readthedocs.io/en/latest/installation.html#obtain-anaconda
 #conda create -y -n astroconda stsci
 ##With iraf
-conda config --add channels http://ssb.stsci.edu/astroconda
-conda create -y -n iraf27 python=2.7 iraf pyraf stsci
+RUN /opt/conda/bin/conda config --add channels http://ssb.stsci.edu/astroconda
+RUN /opt/conda/bin/conda create -y -n iraf27 python=2.7 iraf pyraf stsci
 
 
 
