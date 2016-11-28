@@ -28,7 +28,10 @@ RUN yum -y install \
 
 RUN yum -y install binutils-devel
 
-RUN yum -y install gcc gcc-c++ gcc-gfortran git make patch python-devel
+RUN yum -y install binutils-devel gcc gcc-c++ gcc-gfortran git make patch python-devel \
+	   glibc.i686 zlib.i686 ncurses-libs.i686 bzip2-libs.i686 uuid.i686 libxcb.i686
+
+#These are needed to build IRAF
 
 RUN yum -y install \
            bzip2-devel \
