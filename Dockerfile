@@ -16,17 +16,12 @@ ADD dot-bash_profile              /root/.bash_profile
 RUN yum -y erase centos-release
 RUN yum -y erase all
 RUN yum -y distro-sync
-
-ENV HOME /root
+#ENV HOME /root
 
 ##Extra
-
 RUN yum -y update
 RUN yum -y install \
            file which
-
-
-RUN yum -y install binutils-devel
 
 RUN yum -y install binutils-devel gcc gcc-c++ gcc-gfortran git make patch python-devel \
 	   glibc.i686 zlib.i686 ncurses-libs.i686 bzip2-libs.i686 uuid.i686 libxcb.i686
@@ -54,11 +49,19 @@ RUN yum -y install \
 #ENV PATH /opt/conda/bin:$PATH
 
 ##To install minicoda python 3.5
+#RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
+#    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh  -O ~/miniconda.sh && \
+#    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
+#    rm ~/miniconda.sh
+#RUN /opt/conda/bin/conda  install -y -c astropy python-cpl=0.7.2
+#ENV PATH /opt/conda/bin:$PATH
+
+## Intall minicoda python 2.7
 RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
-    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh  -O ~/miniconda.sh && \
+    wget --quiet https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh  -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
     rm ~/miniconda.sh
-RUN /opt/conda/bin/conda  install -y -c astropy python-cpl=0.7.2
+#RUN /opt/conda/bin/conda  install -y -c astropy python-cpl=0.7.2
 ENV PATH /opt/conda/bin:$PATH
 
 
@@ -87,8 +90,11 @@ RUN echo 'git clone https://github.com/manuelmarcano22/VIMOSReduced.git' >> clon
 #conda create -y -n astroconda stsci
 ##With iraf
 RUN /opt/conda/bin/conda config --add channels http://ssb.stsci.edu/astroconda
-RUN /opt/conda/bin/conda create -y -n iraf27 python=2.7 iraf pyraf stsci
+#RUN /opt/conda/bin/conda create -y -n iraf27 python=2.7 iraf pyraf stsci
+RUN /opt/conda/bin/conda create -y -n iraf27 python=2.7 iraf pyraf python-cpl
 
 
 
 ## EOF
+
+
