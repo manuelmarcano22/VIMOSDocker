@@ -34,5 +34,9 @@ This will create an interactive session.
 
 ## To do
 
-- [ ] Docker file to install [Pyraf](http://www.stsci.edu/institute/software_hardware/pyraf)
+- ~~[ ] Docker file to install [Pyraf](http://www.stsci.edu/institute/software_hardware/pyraf)~~
+
+- [ ] Use docker volumes to manage data if needed. 
+
+- [ ]  Decrease size by not using all the stsci packages and other dpendencies. 
 
