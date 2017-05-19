@@ -3,7 +3,7 @@ MAINTAINER binet@cern.ch
 
 ##Basic image
 
-RUN rpm -ivh --force http://ftp.scientificlinux.org/linux/scientific/7x/x86_64/os/Packages/sl-release-7.2-2.sl7.x86_64.rpm
+RUN rpm -ivh --force http://ftp.scientificlinux.org/linux/scientific/7x/x86_64/os/Packages/sl-release-7.3-4.sl7.x86_64.rpm
 
 ADD dot-bashrc                    /root/.bashrc
 ADD dot-bash_profile              /root/.bash_profile
@@ -23,9 +23,10 @@ RUN yum -y update
 RUN yum -y install \
            file which
 
-RUN yum -y install binutils-devel gcc gcc-c++ gcc-gfortran git make patch python-devel \
-	   glibc.i686 zlib.i686 ncurses-libs.i686 bzip2-libs.i686 uuid.i686 libxcb.i686 \
-	   libXmu.so.6 libncurses.so.5 tcsh
+RUN yum -y install binutils-devel gcc gcc-c++ gcc-gfortran git make patch  
+#\
+#	   glibc.i686 zlib.i686 ncurses-libs.i686 bzip2-libs.i686 uuid.i686 libxcb.i686 \
+#	   libXmu.so.6 libncurses.so.5 tcsh
 
 
 #These are needed to build IRAF
@@ -38,7 +39,7 @@ RUN yum -y install \
            ncurses-devel \
            texinfo \
            wget \
-	   bzip2 sudo passwd bc csh vim libXScrnSaver evince
+	   bzip2 sudo passwd bc csh vimx libXScrnSaver evince
 
 
 #RUN yum -y install libxslt-devel libXt-devel zip
@@ -67,7 +68,7 @@ RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
 ENV PATH /opt/conda/bin:$PATH
 
 
-RUN wget http://ds9.si.edu/download/linux64_5/ds9.linux64_5.7.4.tar.gz  && tar -zxvf ds9.linux64_5.7.4.tar.gz && rm ds9.linux64_5.7.4.tar.gz
+RUN wget http://ds9.si.edu/download/centos7/ds9.centos7.7.5.tar.gz  && tar -zxvf ds9.centos7.7.5.tar.gz && rm ds9.centos7.7.5.tar.gz
 
 RUN mv ds9 /usr/local/bin
 
@@ -91,13 +92,15 @@ RUN echo 'git clone https://github.com/manuelmarcano22/VIMOSReduced.git' >> clon
 ##Astroconda http://astroconda.readthedocs.io/en/latest/installation.html#obtain-anaconda
 #conda create -y -n astroconda stsci
 ##With iraf
-RUN /opt/conda/bin/conda config --add channels http://ssb.stsci.edu/astroconda
+#RUN /opt/conda/bin/conda config --add channels http://ssb.stsci.edu/astroconda
 #RUN /opt/conda/bin/conda create -y -n iraf27 python=2.7 iraf pyraf stsci
-RUN /opt/conda/bin/conda create -y -n iraf27 python=2.7 iraf pyraf stsci
-
+#For Jupyter Hub
+#RUN /opt/conda/bin/conda create -y -n iraf27 python=2.7 iraf pyraf Flask bokeh
+#ADD environment.yml                   /home/vimos
+ADD environmentpyraf.yml	      /home/vimos
+#RUN conda env create -f environment.yml
+RUN conda env create -f environmentpyraf.yml
 
 
 
 ## EOF
-
-
