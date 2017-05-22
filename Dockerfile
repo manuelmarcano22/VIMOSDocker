@@ -68,12 +68,21 @@ WORKDIR "/root"
 ADD environmentpyraf.yml	      /root/
 RUN conda env create -f environmentpyraf.yml
 ADD login.cl /root/login.cl
+ADD jupyter_notebook_config.py /root/.jupyter/
 #RUN /opt/conda/envs/iraf27/bin/mkiraf
 
 
 RUN echo '#!/bin/bash' > clonerepo.sh && chmod +x clonerepo.sh
 RUN echo 'git clone https://github.com/manuelmarcano22/VIMOSReduced.git' >> clonerepo.sh
 
+# Add Tini. Tini operates as a process subreaper for jupyter. This prevents
+# kernel crashes.
+ENV TINI_VERSION v0.6.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/bin/tini
+RUN chmod +x /usr/bin/tini
+ENTRYPOINT ["/usr/bin/tini", "--"]
 
 
 EXPOSE  80 8080 8888
+CMD ["/opt/conda/envs/iraf27/bin/jupyter", "notebook", "--allow-root", "--no-browser", "--ip=0.0.0.0"]
+
