@@ -76,4 +76,4 @@ RUN echo 'git clone https://github.com/manuelmarcano22/VIMOSReduced.git' >> clon
 
 
 
-EXPOSE  80 8080
+EXPOSE  80 8080 8888
