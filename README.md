@@ -1,6 +1,6 @@
 ## VIMOS docker
 
-This includes the Dockerfile for a image with Anaconda (or miniconda)(based on Python 3.5) of Scientific Linux 7.2. The original Dockerfile is from  [hwaf-docker](https://github.com/hwaf/hwaf-docker). It builds Scientif Linux from the Centos image. The build image can be downloaded from Docker Hub from [vimosdocker](https://hub.docker.com/r/manuelmarcano22/vimosdocker/).
+This includes the Dockerfile for a image with Anaconda (or miniconda)(based on Python 3.5) of Scientific Linux 7.2. The original Dockerfile is from  [hwaf-docker](https://github.com/hwaf/hwaf-docker). It builds Scientific Linux from the Centos image. The build image can be downloaded from Docker Hub from [vimosdocker](https://hub.docker.com/r/manuelmarcano22/vimosdocker/).
 
 
 More information on some docker images used at the LHC can be found at [LHCb](https://twiki.cern.ch/twiki/bin/view/LHCb/LHCbSoftOnDocker). 
@@ -38,5 +38,5 @@ This will create an interactive session.
 
 - [ ] Use docker volumes to manage data if needed. 
 
-- [ ]  Decrease size by not using all the stsci packages and other dpendencies. 
+- [ ]  Decrease size by not using all the stsci packages and other dependencies. 
 
