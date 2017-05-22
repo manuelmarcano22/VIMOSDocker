@@ -6,6 +6,8 @@ This includes the Dockerfile for a image with Anaconda (or miniconda)(based on P
 More information on some docker images used at the LHC can be found at [LHCb](https://twiki.cern.ch/twiki/bin/view/LHCb/LHCbSoftOnDocker). 
 
 
+By default it runs a Jupyter notebook in port 8888
+
 ### To build do:
 
 The image can be build from the docker file. Just need to clone this repo and then do:
