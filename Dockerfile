@@ -84,5 +84,6 @@ ENTRYPOINT ["/usr/bin/tini", "--"]
 
 
 EXPOSE  80 8080 8888
-CMD ["/opt/conda/envs/iraf27/bin/jupyter", "notebook", "--allow-root", "--no-browser", "--ip=0.0.0.0"]
-
+ADD start.sh /root/start.sh
+RUN chmod +x start.sh
+CMD ["/bin/bash", "start.sh"]
