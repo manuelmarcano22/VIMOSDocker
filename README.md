@@ -29,7 +29,7 @@ The URL is [https://hub.docker.com/r/manuelmarcano22/vimosdocker/](https://hub.d
 
 To run can use:
 
-`docker run -ti manuelmarcano22/vimosdocker`
+`docker run -ti -p 8888:8888 manuelmarcano22/vimosdocker`
 
 This will create an interactive session. 
 

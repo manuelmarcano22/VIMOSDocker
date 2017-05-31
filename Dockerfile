@@ -72,8 +72,12 @@ ADD jupyter_notebook_config.py /root/.jupyter/
 #RUN /opt/conda/envs/iraf27/bin/mkiraf
 
 
-RUN echo '#!/bin/bash' > clonerepo.sh && chmod +x clonerepo.sh
-RUN echo 'git clone https://github.com/manuelmarcano22/VIMOSReduced.git' >> clonerepo.sh
+#RUN echo '#!/bin/bash' > clonerepo.sh && chmod +x clonerepo.sh
+#RUN echo 'git clone https://github.com/manuelmarcano22/VIMOSReduced.git .' >> clonerepo.sh
+RUN git clone https://github.com/manuelmarcano22/VIMOSReduced.git
+ADD downloadfitsdocker.sh /root/downloadfitsdocker.sh
+RUN /bin/bash /root/downloadfitsdocker.sh
+
 
 # Add Tini. Tini operates as a process subreaper for jupyter. This prevents
 # kernel crashes.
