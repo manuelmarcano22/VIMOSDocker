@@ -43,6 +43,7 @@ Or as a daemon:
 
 `docker run -d -p 8888:8888 manuelmarcano22/vimosdocker`
 
+This will create a notebook server running in localhost:8888
 
 
 ## To do
