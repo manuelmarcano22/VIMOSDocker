@@ -33,6 +33,12 @@ Alternatively it can be downloaded from DockerHub with the command:
 The URL is [https://hub.docker.com/r/manuelmarcano22/vimosdocker/](https://hub.docker.com/r/manuelmarcano22/vimosdocker/)
 
 
+### Run /bin/bash
+
+To have a interactive bahs terminal can do:
+
+`docker run -ti --entrypoint=/bin/bash -p 8888:8888 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --name vimosnet manuelmarcano22/vimosdocker`
+
 ### To run
 
 To run can use:
