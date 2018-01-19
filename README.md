@@ -12,17 +12,14 @@ By default it runs a Jupyter notebook in port 8888
 
 The image can be build from the docker file. Just need to clone this repo and then do:
 
-`docker build -t vimos:tag .`
+`docker build -f Dockerfile -t vimosred .`
+`docker run --name   vimosreduce  -it  -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix   -it -p 80:80 -p 8888:8888 --net=host vimosred`
 
-where vimos is the name you want for the image with an arbitrary tag, e.g. v1. 
+<!--`docker build -t vimos:tag .`
+
+where vimos is the name you want for the image with an arbitrary tag, e.g. v1. -->
 
 Can use the buid.sh file:
-
-```bash
-#!/bin/bash
-docker build -f Dockerfile -t vimosred .
-docker run --name vimosreduceonline -d -p 80:80 -p 8888:8888 --net=host vimosred
-```
 
 ### From DockerHub
 
@@ -35,21 +32,17 @@ The URL is [https://hub.docker.com/r/manuelmarcano22/vimosdocker/](https://hub.d
 
 ### Run /bin/bash
 
-To have a interactive bahs terminal can do:
+To have a interactive bash terminal can do:
 
 `docker run -ti --entrypoint=/bin/bash -p 8888:8888 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --name vimosnet manuelmarcano22/vimosdocker`
 
-### To run
+This will overide the entrypoint specified in the Dockerfile
 
-To run can use:
+### Starting the container
 
-`docker run -ti -p 8888:8888 manuelmarcano22/vimosdocker`
+After exiting the container, you can restart the Jupyter server by doing:
 
-Or as a daemon:
-
-`docker run -d -p 8888:8888 manuelmarcano22/vimosdocker`
-
-This will create a notebook server running in localhost:8888
+`docker start -i vimosreduce`
 
 
 ## To do
