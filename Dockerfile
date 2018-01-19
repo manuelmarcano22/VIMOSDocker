@@ -62,8 +62,8 @@ ADD jupyter_notebook_config.py /root/.jupyter/
 #RUN git clone https://github.com/manuelmarcano22/VIMOSReduced.git
 ##Clone only tmp branch
 RUN git clone https://github.com/manuelmarcano22/VIMOSReduced.git --branch temp --single-branch
-ADD downloadfitsdocker.sh /root/downloadfitsdocker.sh
-RUN /bin/bash /root/downloadfitsdocker.sh
+#ADD downloadfitsdocker.sh /root/downloadfitsdocker.sh
+#RUN /bin/bash /root/downloadfitsdocker.sh
 
 
 # Add Tini. Tini operates as a process subreaper for jupyter. This prevents
